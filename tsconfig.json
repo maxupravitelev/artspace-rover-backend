@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "strict": false,
+        "watch": true,
+        // "emitDecoratorMetadata": true,
+        "module": "commonjs",
+        "lib": ["DOM", "ES2019"],
+        "removeComments": true,
+        // "outDir": "js",
+    },
+    "include": ["public" ,"controllers", "models", "utils"],
+    "files": [
+        "index.ts", "app.ts"
+    ],
+    "exclude": ["node_modules", "**/*.spec.ts"]
+
+    // "include": ["ts"], [""]
+}

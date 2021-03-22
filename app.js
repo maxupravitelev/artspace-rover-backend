@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express = require('express');
+require('express-async-errors');
+const app = express();
+const cors = require('cors');
+const config_1 = require("./utils/config");
+const logger_1 = require("./utils/logger");
+const middleware = require('./utils/middleware');
+logger_1.info('connecting to', config_1.MONGODB_URI);
+app.use(cors());
+app.use(express.json());
+app.use(middleware.requestLogger);
+app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
+module.exports = app;
