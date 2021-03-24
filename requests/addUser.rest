@@ -1,0 +1,7 @@
+POST http://localhost:6050/api/users/new-user
+Content-Type: application/json
+
+{
+    "username": "noone",
+    "password": "fakepw"
+}
