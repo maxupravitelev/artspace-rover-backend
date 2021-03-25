@@ -1,12 +1,14 @@
 const usersRouter = require('express').Router()
+
 const User = require('../models/user')
 const { response } = require('../app')
 
+import { Request, Response } from 'express'
 
 ///***** .get routes */
 
 /* .get all scores */
-usersRouter.get('/', async (request, response) => {
+usersRouter.get('/', async (request: Request, response: Response) => {
   const users = await User.find({})
   response.json(users)
 })
@@ -15,7 +17,7 @@ usersRouter.get('/', async (request, response) => {
 
 ///***** .post routes */
 
-usersRouter.post('/new-user', async (request, response) => {
+usersRouter.post('/new-user', async (request: Request, response: Response) => {
     console.log(request.body)
     let user = new User ({
       username: request.body.username,

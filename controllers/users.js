@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const usersRouter = require('express').Router();
 const User = require('../models/user');
 const { response } = require('../app');
