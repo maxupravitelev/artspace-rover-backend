@@ -6,7 +6,7 @@ const timeslotSchema = new mongoose.Schema({
   date: { type: String },
   time: { type: String },
   duration: { type: Number },
-  available: { type: Boolean }
+  available: { type: Boolean, default: true }
 })
 
 module.exports = mongoose.model('Timeslot', timeslotSchema)

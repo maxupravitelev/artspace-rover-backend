@@ -8,11 +8,16 @@ import { Request, Response } from 'express'
 ///***** .get routes */
 
 /* .get all scores */
-timeslotsRouter.get('/', async (request: Request, response: Response) => {
+timeslotsRouter.get('/all-timeslots', async (request: Request, response: Response) => {
   const timeslots = await Timeslot.find({})
   response.json(timeslots)
 })
 
+/* .get all scores */
+timeslotsRouter.get('/available-timeslots', async (request: Request, response: Response) => {
+  const timeslots = await Timeslot.find({ available: true })
+  response.json(timeslots)
+})
 
 
 ///***** .post routes */
