@@ -7,6 +7,7 @@ const cors = require('cors');
 const config_1 = require("./utils/config");
 const logger_1 = require("./utils/logger");
 const usersRouter = require('./controllers/users');
+const timeslotsRouter = require('./controllers/timeslots');
 const middleware = require('./utils/middleware');
 const mongoose = require('mongoose');
 logger_1.info('connecting to', config_1.MONGODB_URI);
@@ -24,6 +25,7 @@ mongoose
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/api/users', usersRouter);
+app.use('/api/timeslots', timeslotsRouter);
 app.use(express.json());
 app.use(middleware.requestLogger);
 app.use(middleware.unknownEndpoint);

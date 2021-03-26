@@ -13,6 +13,9 @@ import { info, error } from './utils/logger'
 
 // const logger = require('./utils/logger')
 const usersRouter = require('./controllers/users')
+const timeslotsRouter = require('./controllers/timeslots')
+
+
 const middleware = require('./utils/middleware')
 
 
@@ -40,6 +43,8 @@ mongoose
 app.use(cors()) // enable cors
 app.use(bodyParser.json())
 app.use('/api/users', usersRouter) // enable user router
+app.use('/api/timeslots', timeslotsRouter) // enable timeslots router
+
 // app.use(express.static('public')) // 
 app.use(express.json()) 
 

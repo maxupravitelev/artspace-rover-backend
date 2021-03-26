@@ -1,0 +1,9 @@
+POST http://localhost:6050/api/timeslots/generate-timeslots
+Content-Type: application/json
+
+{
+   "date": "29.03.2020",
+   "firstTimeSlotOfTheDay": 9,
+   "closingTime": 17,
+   "timeSlotDuration": 20
+}
