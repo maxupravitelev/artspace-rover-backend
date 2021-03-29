@@ -12,7 +12,6 @@ timeslotsRouter.get('/available-timeslots', async (request, response) => {
     response.json(timeslots);
 });
 timeslotsRouter.post('/new-timeslot', async (request, response) => {
-    console.log(request.body);
     let timeslot = new Timeslot({
         username: request.body.username,
         password: request.body.password,
@@ -35,7 +34,7 @@ timeslotsRouter.post('/generate-timeslots', async (request, response) => {
             if (minutes == '0') {
                 minutes = '00';
             }
-            let endTime = String(j + 20);
+            let endTime = String(j + timeSlotDuration);
             if (endTime == '60') {
                 endTime = '00';
                 hourEnd = String(firstTimeSlotOfTheDay + i + 1);
@@ -49,6 +48,12 @@ timeslotsRouter.post('/generate-timeslots', async (request, response) => {
             });
         }
     }
-    response.json(timeslots);
+    let timeslotsInDb = [];
+    for (let i = 0; i < timeslots.length; i++) {
+        const newTimeslot = new Timeslot(timeslots[i]);
+        const timeslotInDb = await newTimeslot.save();
+        timeslotsInDb.push(timeslotInDb);
+    }
+    response.json(timeslotsInDb);
 });
 module.exports = timeslotsRouter;

@@ -5,5 +5,5 @@ Content-Type: application/json
    "date": "29.03.2020",
    "firstTimeSlotOfTheDay": 9,
    "closingTime": 17,
-   "timeSlotDuration": 20
+   "timeSlotDuration": 30
 }

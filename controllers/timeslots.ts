@@ -7,7 +7,7 @@ import { Request, Response } from 'express'
 
 ///***** .get routes */
 
-/* .get all scores */
+/* get all timeslots */
 timeslotsRouter.get(
   '/all-timeslots',
   async (request: Request, response: Response) => {
@@ -16,7 +16,7 @@ timeslotsRouter.get(
   }
 )
 
-/* .get all scores */
+/* get all timeslots */
 timeslotsRouter.get(
   '/available-timeslots',
   async (request: Request, response: Response) => {
@@ -30,7 +30,6 @@ timeslotsRouter.get(
 timeslotsRouter.post(
   '/new-timeslot',
   async (request: Request, response: Response) => {
-    console.log(request.body)
     let timeslot = new Timeslot({
       username: request.body.username,
       password: request.body.password,
@@ -62,7 +61,7 @@ timeslotsRouter.post(
           minutes = '00'
         }
 
-        let endTime = String(j + 20)
+        let endTime = String(j + timeSlotDuration)
         if (endTime == '60') {
           endTime = '00'
           hourEnd = String(firstTimeSlotOfTheDay + i + 1)
@@ -78,6 +77,14 @@ timeslotsRouter.post(
       }
     }
 
+    let timeslotsInDb = []
+
+    for (let i = 0; i < timeslots.length; i++) {
+      const newTimeslot = new Timeslot(timeslots[i])
+      const timeslotInDb = await newTimeslot.save()
+      timeslotsInDb.push(timeslotInDb)
+    }
+
     // let timeslot = new Timeslot ({
     //   username: request.body.username,
     //   password: request.body.password
@@ -85,7 +92,7 @@ timeslotsRouter.post(
 
     // const newTimeslot = await timeslot.save()
     // response.json(newTimeslot)
-    response.json(timeslots)
+    response.json(timeslotsInDb)
   }
 )
 
