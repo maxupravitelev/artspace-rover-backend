@@ -31,8 +31,11 @@ timeslotsRouter.post(
   '/new-timeslot',
   async (request: Request, response: Response) => {
     let timeslot = new Timeslot({
-      username: request.body.username,
-      password: request.body.password,
+      date: request.body.date,
+      startTime: request.body.startTime,
+      endTime: request.body.endTime,
+      duration: request.body.duration,
+      available: request.body.available,
     })
 
     const newTimeslot = await timeslot.save()

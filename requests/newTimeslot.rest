@@ -1,0 +1,10 @@
+POST http://localhost:6050/api/timeslots/new-timeslot
+Content-Type: application/json
+
+{
+  "date": "21.05.2021",
+  "startTme": "15:30",
+  "endTime": "16:00",
+  "duration": 30,
+  "available": true
+}
