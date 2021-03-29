@@ -7,6 +7,7 @@
         "module": "commonjs",
         "lib": ["DOM", "ES2019"],
         "removeComments": true,
+        "esModuleInterop": true
         // "outDir": "js",
     },
     "include": ["public" ,"controllers", "models", "utils"],

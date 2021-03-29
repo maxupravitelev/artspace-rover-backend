@@ -8,18 +8,14 @@ import { Request, Response } from 'express'
 ///***** .get routes */
 
 /* get all timeslots */
-timeslotsRouter.get(
-  '/all-timeslots',
-  async (request: Request, response: Response) => {
+timeslotsRouter.get('/all-timeslots', async (request: Request, response: Response) => {
     const timeslots = await Timeslot.find({})
     response.json(timeslots)
   }
 )
 
 /* get all timeslots */
-timeslotsRouter.get(
-  '/available-timeslots',
-  async (request: Request, response: Response) => {
+timeslotsRouter.get('/available-timeslots', async (request: Request, response: Response) => {
     const timeslots = await Timeslot.find({ available: true })
     response.json(timeslots)
   }
@@ -27,9 +23,8 @@ timeslotsRouter.get(
 
 ///***** .post routes */
 
-timeslotsRouter.post(
-  '/new-timeslot',
-  async (request: Request, response: Response) => {
+/* create a single timeslot */
+timeslotsRouter.post('/new-timeslot', async (request: Request, response: Response) => {
     let timeslot = new Timeslot({
       date: request.body.date,
       startTime: request.body.startTime,
@@ -43,15 +38,18 @@ timeslotsRouter.post(
   }
 )
 
-timeslotsRouter.post(
-  '/generate-timeslots',
-  async (request: Request, response: Response) => {
+
+/* create a batch of timeslots based on req */
+timeslotsRouter.post('/generate-timeslots', async (request: Request, response: Response) => {
+
+    // parse request
     let date = request.body.date
     let firstTimeSlotOfTheDay = request.body.firstTimeSlotOfTheDay
     let closingTime = request.body.closingTime
     let timeSlotDuration = request.body.timeSlotDuration
-
     let openingHoursTotal = closingTime - firstTimeSlotOfTheDay
+    
+    // generate timeslots based on req
     let timeslots = []
 
     for (let i = 0; i < openingHoursTotal; i++) {
@@ -80,6 +78,7 @@ timeslotsRouter.post(
       }
     }
 
+    // save timeslots in DB
     let timeslotsInDb = []
 
     for (let i = 0; i < timeslots.length; i++) {
@@ -88,13 +87,6 @@ timeslotsRouter.post(
       timeslotsInDb.push(timeslotInDb)
     }
 
-    // let timeslot = new Timeslot ({
-    //   username: request.body.username,
-    //   password: request.body.password
-    // })
-
-    // const newTimeslot = await timeslot.save()
-    // response.json(newTimeslot)
     response.json(timeslotsInDb)
   }
 )
