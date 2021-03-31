@@ -1,0 +1,1 @@
+GET http://localhost:6050/api/exhibitions/

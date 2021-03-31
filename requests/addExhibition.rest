@@ -1,0 +1,10 @@
+POST http://localhost:6050/api/exhibitions/new-exhibition
+Content-Type: application/json
+
+{
+    "artspace": "brimboria",
+    "rovers": "basic",
+    "description": "Lorem Ipsum",
+    "openingDay": "12.04.2021",
+    "closingDay": "29.06.2021"
+}
