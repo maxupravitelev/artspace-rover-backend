@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const usersRouter = require('express').Router();
+const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const { response } = require('../app');
 usersRouter.get('/', async (request, response) => {
@@ -8,12 +9,19 @@ usersRouter.get('/', async (request, response) => {
     response.json(users);
 });
 usersRouter.post('/new-user', async (request, response) => {
-    console.log(request.body);
-    let user = new User({
-        username: request.body.username,
-        password: request.body.password
+    const body = request.body;
+    if (body.password.length < 3 || body.password.username < 3) {
+        return response
+            .status(400)
+            .json({ error: 'username and password must be at least 3 chars long' });
+    }
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(body.password, saltRounds);
+    const user = new User({
+        username: body.username,
+        passwordHash,
     });
-    const newUser = await user.save();
-    response.json(user);
+    const savedUser = await user.save();
+    response.json(savedUser);
 });
 module.exports = usersRouter;

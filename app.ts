@@ -9,7 +9,7 @@ const cors = require('cors')
 
 // init middleware
 import { PORT, MONGODB_URI } from './utils/config'
-import { info, error } from './utils/logger'
+import { info, log_error } from './utils/logger'
 
 // const logger = require('./utils/logger')
 const usersRouter = require('./controllers/users')
@@ -37,7 +37,7 @@ mongoose
     info('connected to MongoDB')
   })
   .catch((err) => {
-    error('error connection to MongoDB:', err.message)
+    log_error('error connection to MongoDB:', err.message)
   })
 
 // config app & middleware
