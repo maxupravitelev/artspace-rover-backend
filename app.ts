@@ -15,6 +15,7 @@ import { info, log_error } from './utils/logger'
 const usersRouter = require('./controllers/users')
 const timeslotsRouter = require('./controllers/timeslots')
 const exhibitionsRouter = require('./controllers/exhibitions')
+const loginRouter = require('./controllers/login')
 
 
 const middleware = require('./utils/middleware')
@@ -46,6 +47,7 @@ app.use(bodyParser.json())
 app.use('/api/users', usersRouter) // enable user router
 app.use('/api/timeslots', timeslotsRouter) // enable timeslots router
 app.use('/api/exhibitions', exhibitionsRouter) // enable timeslots router
+app.use('/api/login', loginRouter) // enable timeslots router
 
 // app.use(express.static('public')) // 
 app.use(express.json()) 
