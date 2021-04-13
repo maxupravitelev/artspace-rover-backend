@@ -8,6 +8,14 @@ usersRouter.get('/', async (request, response) => {
     const users = await User.find({});
     response.json(users);
 });
+usersRouter.get('/:id', async (request, response) => {
+    const user = await User.findById(request.params.id).populate('rovers', {
+        title: 1,
+        author: 1,
+        url: 1,
+    });
+    response.json(user);
+});
 usersRouter.post('/new-user', async (request, response) => {
     const body = request.body;
     if (body.password.length < 3 || body.password.username < 3) {

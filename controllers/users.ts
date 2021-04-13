@@ -15,6 +15,16 @@ usersRouter.get('/', async (request: Request, response: Response) => {
 })
 
 
+// get user data by user id
+usersRouter.get('/:id', async (request, response) => {
+  const user = await User.findById(request.params.id).populate('rovers', {
+    title: 1,
+    author: 1,
+    url: 1,
+  })
+  response.json(user)
+})
+
 
 ///***** .post routes */
 
