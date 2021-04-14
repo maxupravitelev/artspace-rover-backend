@@ -9,11 +9,7 @@ usersRouter.get('/', async (request, response) => {
     response.json(users);
 });
 usersRouter.get('/:id', async (request, response) => {
-    const user = await User.findById(request.params.id).populate('rovers', {
-        title: 1,
-        author: 1,
-        url: 1,
-    });
+    const user = await User.findById(request.params.id).populate('rovers');
     response.json(user);
 });
 usersRouter.post('/new-user', async (request, response) => {

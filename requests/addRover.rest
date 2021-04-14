@@ -2,7 +2,7 @@ POST http://localhost:6050/api/rovers/new-rover
 Content-Type: application/json
 
 {
-    "userId": "6075c42cc51c2a20ede59b01"
+    "user": "60700e8f5f3a3f2bdb3fdbca"
 }
 
 
