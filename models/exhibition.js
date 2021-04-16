@@ -7,7 +7,12 @@ const mongoose_1 = __importDefault(require("mongoose"));
 mongoose_1.default.set('useFindAndModify', false);
 const exhibitionSchema = new mongoose_1.default.Schema({
     artspace: { type: String },
-    rovers: { type: String },
+    rovers: [
+        {
+            type: mongoose_1.default.Schema.Types.ObjectId,
+            ref: 'Rover'
+        }
+    ],
     description: { type: String },
     openingDay: { type: String },
     closingDay: { type: String },

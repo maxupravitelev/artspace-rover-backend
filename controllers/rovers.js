@@ -39,7 +39,6 @@ roversRouter.put('/updateJitsiUrl/:id', async (request, response) => {
         jitsiUrl: body.jitsiUrl,
     };
     const updatedRover = await Rover.findByIdAndUpdate(request.params.id, updatedJitsiUrl, { new: true });
-    console.log(updatedRover);
     response.json(updatedRover);
 });
 module.exports = roversRouter;
