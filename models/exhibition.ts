@@ -13,6 +13,8 @@ const exhibitionSchema = new mongoose.Schema({
   description: { type: String },
   openingDay: { type: String },
   closingDay: { type: String },
+  title: { type: String },
+  bannerImage: { type: String }
 })
 
 module.exports = mongoose.model('Exhibition', exhibitionSchema)

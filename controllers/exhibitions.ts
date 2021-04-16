@@ -9,7 +9,7 @@ import { Request, Response } from 'express'
 
 /* .get all scores */
 exhibitionsRouter.get('/', async (request: Request, response: Response) => {
-  const exhibitions = await Exhibition.find({})
+  const exhibitions = await Exhibition.find({}).populate('rovers')
   response.json(exhibitions)
 })
 

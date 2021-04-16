@@ -16,5 +16,7 @@ const exhibitionSchema = new mongoose_1.default.Schema({
     description: { type: String },
     openingDay: { type: String },
     closingDay: { type: String },
+    title: { type: String },
+    bannerImage: { type: String }
 });
 module.exports = mongoose_1.default.model('Exhibition', exhibitionSchema);

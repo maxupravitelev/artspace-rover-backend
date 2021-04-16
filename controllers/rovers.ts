@@ -71,6 +71,29 @@ roversRouter.put('/updateJitsiUrl/:id', async (request, response) => {
   response.json(updatedRover)
 })
 
+// update baseUrl
+roversRouter.put('/updateBaseUrl/:id', async (request, response) => {
 
+  const token = getTokenFrom(request)
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+
+  const body = request.body
+
+  const updateBaseUrl = {
+    roverUrl: body.baseUrl,
+  }
+
+  const updatedRover = await Rover.findByIdAndUpdate(
+    request.params.id,
+    updateBaseUrl,
+    { new: true }
+  )
+
+  response.json(updatedRover)
+})
 
 module.exports = roversRouter

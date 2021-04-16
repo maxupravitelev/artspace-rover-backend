@@ -4,7 +4,7 @@ const exhibitionsRouter = require('express').Router();
 const Exhibition = require('../models/exhibition');
 const { response } = require('../app');
 exhibitionsRouter.get('/', async (request, response) => {
-    const exhibitions = await Exhibition.find({});
+    const exhibitions = await Exhibition.find({}).populate('rovers');
     response.json(exhibitions);
 });
 exhibitionsRouter.post('/new-exhibition', async (request, response) => {
