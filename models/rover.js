@@ -8,6 +8,7 @@ mongoose_1.default.set('useFindAndModify', false);
 const roverSchema = new mongoose_1.default.Schema({
     jitsiUrl: { type: String, default: "not set" },
     roverUrl: { type: String, default: "not set" },
+    mjpgUrl: { type: String, default: "not set" },
     userId: { type: String },
     user: {
         type: mongoose_1.default.Schema.Types.ObjectId,

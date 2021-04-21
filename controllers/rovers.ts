@@ -71,8 +71,8 @@ roversRouter.put('/updateJitsiUrl/:id', async (request, response) => {
   response.json(updatedRover)
 })
 
-// update baseUrl
-roversRouter.put('/updateBaseUrl/:id', async (request, response) => {
+// update roverUrl
+roversRouter.put('/updateRoverUrl/:id', async (request, response) => {
 
   const token = getTokenFrom(request)
   const decodedToken = jwt.verify(token, process.env.SECRET)
@@ -83,13 +83,38 @@ roversRouter.put('/updateBaseUrl/:id', async (request, response) => {
 
   const body = request.body
 
-  const updateBaseUrl = {
-    roverUrl: body.baseUrl,
+  const updateRoverUrl = {
+    roverUrl: body.roverUrl,
   }
 
   const updatedRover = await Rover.findByIdAndUpdate(
     request.params.id,
-    updateBaseUrl,
+    updateRoverUrl,
+    { new: true }
+  )
+
+  response.json(updatedRover)
+})
+
+// update mjpgUrl
+roversRouter.put('/updateMjpgUrl/:id', async (request, response) => {
+
+  const token = getTokenFrom(request)
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+
+  const body = request.body
+
+  const updateMjpgUrl = {
+    mjpgUrl: body.mjpgUrl,
+  }
+
+  const updatedRover = await Rover.findByIdAndUpdate(
+    request.params.id,
+    updateMjpgUrl,
     { new: true }
   )
 
