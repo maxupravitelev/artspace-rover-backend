@@ -1,6 +1,6 @@
 // const logger = require('./logger')
 
-import {info, log_error} from './logger'
+import { info, log_error } from './logger'
 
 const requestLogger = (request, response, next) => {
   info('Method:', request.method)

@@ -17,10 +17,10 @@ const timeslotsRouter = require('./controllers/timeslots')
 const exhibitionsRouter = require('./controllers/exhibitions')
 const loginRouter = require('./controllers/login')
 const roversRouter = require('./controllers/rovers')
+const visitorsRouter = require('./controllers/visitors')
 
 
 const middleware = require('./utils/middleware')
-
 
 
 // // init  DB
@@ -52,6 +52,7 @@ app.use('/api/timeslots', timeslotsRouter)
 app.use('/api/exhibitions', exhibitionsRouter) 
 app.use('/api/login', loginRouter) 
 app.use('/api/rovers', roversRouter) 
+app.use('/api/visitors', visitorsRouter) 
 
 // app.use(express.static('public')) 
 app.use(express.json()) 
