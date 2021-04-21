@@ -7,6 +7,9 @@ const { response } = require('../app')
 
 import { Request, Response } from 'express'
 
+const randomWords = require('random-words')
+
+
 /// GET ROUTES
 
 /// POST ROUTES
@@ -15,9 +18,8 @@ import { Request, Response } from 'express'
 // book timeslot
 visitorsRouter.post('/new-visitor/timeslot/:id', async (request: Request, response: Response) => {
 
-  console.log(request.body)
-
-  let passphrase = "test phrase"
+  // works with Math.random, which is alright since security is not an issue while starting streaming sessions
+  let passphrase = randomWords({ exactly: 5, join: ' ' })
 
   const timeslotInDb = await Timeslot.findById(request.params.id)
 

@@ -4,9 +4,9 @@ const visitorsRouter = require('express').Router();
 const Visitor = require('../models/visitor');
 const Timeslot = require('../models/timeslot');
 const { response } = require('../app');
+const randomWords = require('random-words');
 visitorsRouter.post('/new-visitor/timeslot/:id', async (request, response) => {
-    console.log(request.body);
-    let passphrase = "test phrase";
+    let passphrase = randomWords({ exactly: 5, join: ' ' });
     const timeslotInDb = await Timeslot.findById(request.params.id);
     let visitor = new Visitor({
         eMailAddress: request.body.eMailAddress,
