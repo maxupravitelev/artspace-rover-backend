@@ -5,6 +5,10 @@ const { response } = require('../app')
 
 import { Request, Response } from 'express'
 
+import { getTokenFrom } from '../utils/getTokenFrom'
+
+const jwt = require('jsonwebtoken')
+
 ///***** .get routes */
 
 /* get all timeslots */
@@ -90,5 +94,20 @@ timeslotsRouter.post('/generate-timeslots', async (request: Request, response: R
     response.json(timeslotsInDb)
   }
 )
+
+// remove timeslot by id
+timeslotsRouter.delete('/:id', async (request, response) => {
+
+  const token = getTokenFrom(request)
+
+  
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+    await Timeslot.findByIdAndRemove(request.params.id)
+    response.status(204).end()
+})
 
 module.exports = timeslotsRouter

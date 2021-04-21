@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const timeslotsRouter = require('express').Router();
 const Timeslot = require('../models/timeslot');
 const { response } = require('../app');
+const getTokenFrom_1 = require("../utils/getTokenFrom");
+const jwt = require('jsonwebtoken');
 timeslotsRouter.get('/all-timeslots', async (request, response) => {
     const timeslots = await Timeslot.find({});
     response.json(timeslots);
@@ -58,5 +60,14 @@ timeslotsRouter.post('/generate-timeslots', async (request, response) => {
         timeslotsInDb.push(timeslotInDb);
     }
     response.json(timeslotsInDb);
+});
+timeslotsRouter.delete('/:id', async (request, response) => {
+    const token = getTokenFrom_1.getTokenFrom(request);
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    if (!token || !decodedToken.id) {
+        return response.status(401).json({ error: 'token missing or invalid' });
+    }
+    await Timeslot.findByIdAndRemove(request.params.id);
+    response.status(204).end();
 });
 module.exports = timeslotsRouter;

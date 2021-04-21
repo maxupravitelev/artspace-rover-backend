@@ -9,14 +9,15 @@ const { response } = require('../app')
 
 import { Request, Response } from 'express'
 
+import { getTokenFrom } from '../utils/getTokenFrom'
 
-const getTokenFrom = request => {
-  const authorization = request.get('authorization')
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    return authorization.substring(7)
-  }
-  return null
-}
+// const getTokenFrom = request => {
+//   const authorization = request.get('authorization')
+//   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+//     return authorization.substring(7)
+//   }
+//   return null
+// }
 
 ///***** .get routes */
 

@@ -6,13 +6,7 @@ const jwt = require('jsonwebtoken');
 const Rover = require('../models/rover');
 const User = require('../models/user');
 const { response } = require('../app');
-const getTokenFrom = request => {
-    const authorization = request.get('authorization');
-    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-        return authorization.substring(7);
-    }
-    return null;
-};
+const getTokenFrom_1 = require("../utils/getTokenFrom");
 roversRouter.get('/', async (request, response) => {
     const rovers = await User.find({});
     response.json(rovers);
@@ -29,7 +23,7 @@ roversRouter.post('/new-rover', async (request, response) => {
     response.json(savedRover);
 });
 roversRouter.put('/updateJitsiUrl/:id', async (request, response) => {
-    const token = getTokenFrom(request);
+    const token = getTokenFrom_1.getTokenFrom(request);
     const decodedToken = jwt.verify(token, process.env.SECRET);
     if (!token || !decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid' });
@@ -42,7 +36,7 @@ roversRouter.put('/updateJitsiUrl/:id', async (request, response) => {
     response.json(updatedRover);
 });
 roversRouter.put('/updateRoverUrl/:id', async (request, response) => {
-    const token = getTokenFrom(request);
+    const token = getTokenFrom_1.getTokenFrom(request);
     const decodedToken = jwt.verify(token, process.env.SECRET);
     if (!token || !decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid' });
@@ -55,7 +49,7 @@ roversRouter.put('/updateRoverUrl/:id', async (request, response) => {
     response.json(updatedRover);
 });
 roversRouter.put('/updateMjpgUrl/:id', async (request, response) => {
-    const token = getTokenFrom(request);
+    const token = getTokenFrom_1.getTokenFrom(request);
     const decodedToken = jwt.verify(token, process.env.SECRET);
     if (!token || !decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid' });
