@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
+const Timeslot = require('./timeslot');
 mongoose_1.default.set('useFindAndModify', false);
 const visitorSchema = new mongoose_1.default.Schema({
     eMailAddress: { type: String,
@@ -12,7 +13,7 @@ const visitorSchema = new mongoose_1.default.Schema({
     },
     timeslot: {
         type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: 'timeslot'
+        ref: Timeslot
     },
 });
 module.exports = mongoose_1.default.model('Visitor', visitorSchema);

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+const Timeslot = require('./timeslot')
 
 mongoose.set('useFindAndModify', false)
 
@@ -11,7 +12,7 @@ const visitorSchema = new mongoose.Schema({
   },
   timeslot: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'timeslot'
+    ref: Timeslot
   },
 })
 

@@ -33,7 +33,10 @@ visitorsRouter.post('/new-visitor/timeslot/:id', async (request: Request, respon
   timeslotInDb.save()
 
   const newVisitor = await visitor.save()
-  response.json(newVisitor)
+
+  const newVisitorInDb = await Visitor.findById(newVisitor._id).populate('timeslot')
+
+  response.json(newVisitorInDb)
 }
 )
 
