@@ -9,6 +9,8 @@ import { Request, Response } from 'express'
 
 const randomWords = require('random-words')
 
+let sessionInProgress = false
+
 
 /// GET ROUTES
 // get user data by user id
@@ -18,6 +20,10 @@ visitorsRouter.get('/:id', async (request: Request, response: Response) => {
 })
 
 
+// get driving session state
+visitorsRouter.get('/checkSession', async (request: Request, response: Response) => {
+  response.json(sessionInProgress)
+})
 
 /// POST ROUTES
 ///
@@ -50,17 +56,15 @@ visitorsRouter.post('/new-visitor/timeslot/:id', async (request: Request, respon
 // check scheduled ride credentials
 visitorsRouter.post('/check/', async (request: Request, response: Response) => {
 
-  const visitor = await Visitor.findOne({ eMailAddress: request.body.credentials.eMailAddress }).populate('timeslot')
+  const visitor = await Visitor.findOne({ eMailAddress: request.body.eMailAddress }).populate('timeslot')
   
-  console.log(request.body)
-
   if (!visitor) {
     return response.status(400).json({
       error: 'visitor not found',
     })
   }
 
-  if (visitor.passphrase != request.body.credentials.passphrase) {
+  if (visitor.passphrase != request.body.passphrase) {
       return response.status(401).json({
         error: 'invalid password',
       })
@@ -82,10 +86,34 @@ visitorsRouter.post('/check/', async (request: Request, response: Response) => {
     })
   }
 
-  response.json(visitor)
+  sessionInProgress = true
 
-
+  response.json('session can be started')
   }
 )
+
+
+// set driving session state
+visitorsRouter.post('/endSession', async (request: Request, response: Response) => {
+  
+  const visitor = await Visitor.findOne({ passphrase: request.body.passphrase })
+  
+  if (!visitor) {
+    return response.status(400).json({
+      error: 'visitor not found',
+    })
+  }
+
+  if (visitor.passphrase != request.body.passphrase) {
+      return response.status(401).json({
+        error: 'invalid password',
+      })
+    }
+
+  sessionInProgress = false
+  
+  response.json(sessionInProgress)
+})
+
 
 module.exports = visitorsRouter

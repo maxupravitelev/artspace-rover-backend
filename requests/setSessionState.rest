@@ -1,7 +1,6 @@
-POST http://localhost:6050/api/visitors/check/
+POST http://localhost:6050/api/visitors/setSession/
 Content-Type: application/json
 
 {
-  "eMailAddress": "test@test.net",
   "passphrase": "scared last outside perhaps else"
 }

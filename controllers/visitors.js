@@ -5,9 +5,13 @@ const Visitor = require('../models/visitor');
 const Timeslot = require('../models/timeslot');
 const { response } = require('../app');
 const randomWords = require('random-words');
+let sessionInProgress = false;
 visitorsRouter.get('/:id', async (request, response) => {
     const visitor = await Visitor.findById(request.params.id).populate('timeslot');
     response.json(visitor);
+});
+visitorsRouter.get('/checkSession', async (request, response) => {
+    response.json(sessionInProgress);
 });
 visitorsRouter.post('/new-visitor/timeslot/:id', async (request, response) => {
     let passphrase = randomWords({ exactly: 5, join: ' ' });
@@ -24,14 +28,13 @@ visitorsRouter.post('/new-visitor/timeslot/:id', async (request, response) => {
     response.json(newVisitorInDb);
 });
 visitorsRouter.post('/check/', async (request, response) => {
-    const visitor = await Visitor.findOne({ eMailAddress: request.body.credentials.eMailAddress }).populate('timeslot');
-    console.log(request.body);
+    const visitor = await Visitor.findOne({ eMailAddress: request.body.eMailAddress }).populate('timeslot');
     if (!visitor) {
         return response.status(400).json({
             error: 'visitor not found',
         });
     }
-    if (visitor.passphrase != request.body.credentials.passphrase) {
+    if (visitor.passphrase != request.body.passphrase) {
         return response.status(401).json({
             error: 'invalid password',
         });
@@ -49,6 +52,22 @@ visitorsRouter.post('/check/', async (request, response) => {
             error: `your session has already ended, it was booked on ${visitor.timeslot.endTime} (${visitor.timeslot.date})`,
         });
     }
-    response.json(visitor);
+    sessionInProgress = true;
+    response.json('session can be started');
+});
+visitorsRouter.post('/endSession', async (request, response) => {
+    const visitor = await Visitor.findOne({ passphrase: request.body.passphrase });
+    if (!visitor) {
+        return response.status(400).json({
+            error: 'visitor not found',
+        });
+    }
+    if (visitor.passphrase != request.body.passphrase) {
+        return response.status(401).json({
+            error: 'invalid password',
+        });
+    }
+    sessionInProgress = false;
+    response.json(sessionInProgress);
 });
 module.exports = visitorsRouter;
