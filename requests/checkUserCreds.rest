@@ -1,7 +1,9 @@
-POST http://localhost:6050/api/visitors/check/608164425a97571eafb45322
+POST http://localhost:6050/api/visitors/check/
 Content-Type: application/json
 
 {
-  "eMailAddress": "test@test.net",
-  "passphrase": "scared last outside perhaps else"
+  "credentials": {
+    "eMailAddress": "test@test.net",
+    "passphrase": "scared last outside perhaps else"
+  }
 }

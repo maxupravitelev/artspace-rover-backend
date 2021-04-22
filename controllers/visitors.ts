@@ -48,17 +48,19 @@ visitorsRouter.post('/new-visitor/timeslot/:id', async (request: Request, respon
 )
 
 // check scheduled ride credentials
-visitorsRouter.post('/check/:id', async (request: Request, response: Response) => {
+visitorsRouter.post('/check/', async (request: Request, response: Response) => {
 
-  const visitor = await Visitor.findById(request.params.id).populate('timeslot')
-    
+  const visitor = await Visitor.findOne({ eMailAddress: request.body.credentials.eMailAddress }).populate('timeslot')
+  
+  console.log(request.body)
+
   if (!visitor) {
     return response.status(400).json({
       error: 'visitor not found',
     })
   }
 
-  if (visitor.passphrase != request.body.passphrase) {
+  if (visitor.passphrase != request.body.credentials.passphrase) {
       return response.status(401).json({
         error: 'invalid password',
       })
