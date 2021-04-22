@@ -5,13 +5,13 @@ const Visitor = require('../models/visitor');
 const Timeslot = require('../models/timeslot');
 const { response } = require('../app');
 const randomWords = require('random-words');
-let sessionInProgress = false;
-visitorsRouter.get('/:id', async (request, response) => {
+let sessionState = "session ended";
+visitorsRouter.get('/findbyid/:id', async (request, response) => {
     const visitor = await Visitor.findById(request.params.id).populate('timeslot');
     response.json(visitor);
 });
-visitorsRouter.get('/checkSession', async (request, response) => {
-    response.json(sessionInProgress);
+visitorsRouter.get('/checkSession/', async (request, response) => {
+    response.json(sessionState);
 });
 visitorsRouter.post('/new-visitor/timeslot/:id', async (request, response) => {
     let passphrase = randomWords({ exactly: 5, join: ' ' });
@@ -42,20 +42,12 @@ visitorsRouter.post('/check/', async (request, response) => {
     const timeNow = Date.now();
     const timeslotStartingTime = Date.parse("2021-04-22T" + visitor.timeslot.startTime + ":00");
     const timeslotEndingTime = Date.parse("2021-04-22T" + visitor.timeslot.endTime + ":00");
-    if (timeNow < timeslotStartingTime) {
-        return response.status(400).json({
-            error: `your session has not started yet, please come back on ${visitor.timeslot.startTime} (${visitor.timeslot.date})`,
-        });
-    }
-    if (timeNow > timeslotEndingTime) {
-        return response.status(400).json({
-            error: `your session has already ended, it was booked on ${visitor.timeslot.endTime} (${visitor.timeslot.date})`,
-        });
-    }
-    sessionInProgress = true;
+    sessionState = "session started";
+    console.log("driving session started");
     response.json('session can be started');
 });
 visitorsRouter.post('/endSession', async (request, response) => {
+    console.log(request.body);
     const visitor = await Visitor.findOne({ passphrase: request.body.passphrase });
     if (!visitor) {
         return response.status(400).json({
@@ -67,7 +59,8 @@ visitorsRouter.post('/endSession', async (request, response) => {
             error: 'invalid password',
         });
     }
-    sessionInProgress = false;
-    response.json(sessionInProgress);
+    sessionState = "session ended";
+    console.log("driving session ended");
+    response.json(sessionState);
 });
 module.exports = visitorsRouter;

@@ -9,24 +9,24 @@ import { Request, Response } from 'express'
 
 const randomWords = require('random-words')
 
-let sessionInProgress = false
+let sessionState = "session ended"
 
 
 /// GET ROUTES
+
 // get user data by user id
-visitorsRouter.get('/:id', async (request: Request, response: Response) => {
+visitorsRouter.get('/findbyid/:id', async (request: Request, response: Response) => {
   const visitor = await Visitor.findById(request.params.id).populate('timeslot')
   response.json(visitor)
 })
 
 
 // get driving session state
-visitorsRouter.get('/checkSession', async (request: Request, response: Response) => {
-  response.json(sessionInProgress)
+visitorsRouter.get('/checkSession/', async (request: Request, response: Response) => {
+  response.json(sessionState)
 })
 
 /// POST ROUTES
-///
 
 // book timeslot
 visitorsRouter.post('/new-visitor/timeslot/:id', async (request: Request, response: Response) => {
@@ -74,19 +74,20 @@ visitorsRouter.post('/check/', async (request: Request, response: Response) => {
   const timeslotStartingTime = Date.parse("2021-04-22T" + visitor.timeslot.startTime + ":00")
   const timeslotEndingTime = Date.parse("2021-04-22T" + visitor.timeslot.endTime + ":00")
 
-  if (timeNow < timeslotStartingTime) {
-    return response.status(400).json({
-      error: `your session has not started yet, please come back on ${visitor.timeslot.startTime} (${visitor.timeslot.date})`,
-    })
-  }
+  // if (timeNow < timeslotStartingTime) {
+  //   return response.status(400).json({
+  //     error: `your session has not started yet, please come back on ${visitor.timeslot.startTime} (${visitor.timeslot.date})`,
+  //   })
+  // }
 
-  if (timeNow > timeslotEndingTime) {
-    return response.status(400).json({
-      error: `your session has already ended, it was booked on ${visitor.timeslot.endTime} (${visitor.timeslot.date})`,
-    })
-  }
+  // if (timeNow > timeslotEndingTime) {
+  //   return response.status(400).json({
+  //     error: `your session has already ended, it was booked on ${visitor.timeslot.endTime} (${visitor.timeslot.date})`,
+  //   })
+  // }
 
-  sessionInProgress = true
+  sessionState = "session started"
+  console.log("driving session started")
 
   response.json('session can be started')
   }
@@ -95,7 +96,7 @@ visitorsRouter.post('/check/', async (request: Request, response: Response) => {
 
 // set driving session state
 visitorsRouter.post('/endSession', async (request: Request, response: Response) => {
-  
+  console.log(request.body)
   const visitor = await Visitor.findOne({ passphrase: request.body.passphrase })
   
   if (!visitor) {
@@ -110,9 +111,11 @@ visitorsRouter.post('/endSession', async (request: Request, response: Response) 
       })
     }
 
-  sessionInProgress = false
+  sessionState = "session ended"
   
-  response.json(sessionInProgress)
+  console.log("driving session ended")
+
+  response.json(sessionState)
 })
 
 
