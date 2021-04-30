@@ -14,7 +14,9 @@ exhibitionsRouter.post('/new-exhibition', async (request, response) => {
         rovers: request.body.rovers,
         description: request.body.description,
         openingDay: request.body.openingDay,
-        closingDay: request.body.closingDay
+        closingDay: request.body.closingDay,
+        title: request.body.title,
+        bannerImage: request.body.bannerImage
     });
     console.log(exhibition);
     const newExhibition = await exhibition.save();

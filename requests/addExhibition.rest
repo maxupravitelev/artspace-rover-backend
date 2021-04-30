@@ -2,9 +2,11 @@ POST http://localhost:6050/api/exhibitions/new-exhibition
 Content-Type: application/json
 
 {
-    "artspace": "brimboria",
-    "rovers": "basic",
+    "artspace": "demo artspace",
+    "title": "Dinosaurs, but only the bones",
+    "rovers": "6076b0703d02011cee43996f",
     "description": "Lorem Ipsum",
-    "openingDay": "12.04.2021",
-    "closingDay": "29.06.2021"
+    "openingDay": "22.09.2021",
+    "closingDay": "29.11.2022",
+    "bannerImage": "https://brimboria.net/wp-content/uploads/2021/04/demo3.jpg"
 }
