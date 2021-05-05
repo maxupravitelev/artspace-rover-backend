@@ -28,14 +28,14 @@ mongoose
 });
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json());
+app.use(middleware.requestLogger);
 app.use('/api/users', usersRouter);
 app.use('/api/timeslots', timeslotsRouter);
 app.use('/api/exhibitions', exhibitionsRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/rovers', roversRouter);
 app.use('/api/visitors', visitorsRouter);
-app.use(express.json());
-app.use(middleware.requestLogger);
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 module.exports = app;
