@@ -84,13 +84,13 @@ roversRouter.put('/updateRoverUrl/:id', async (request, response) => {
 
   const body = request.body
 
-  const updateRoverUrl = {
+  const updatedRoverUrl = {
     roverUrl: body.roverUrl,
   }
 
   const updatedRover = await Rover.findByIdAndUpdate(
     request.params.id,
-    updateRoverUrl,
+    updatedRoverUrl,
     { new: true }
   )
 
@@ -109,13 +109,39 @@ roversRouter.put('/updateMjpgUrl/:id', async (request, response) => {
 
   const body = request.body
 
-  const updateMjpgUrl = {
+  const updatedMjpgUrl = {
     mjpgUrl: body.mjpgUrl,
   }
 
   const updatedRover = await Rover.findByIdAndUpdate(
     request.params.id,
-    updateMjpgUrl,
+    updatedMjpgUrl,
+    { new: true }
+  )
+
+  response.json(updatedRover)
+})
+
+
+// update streaming mode
+roversRouter.put('/updateStreamingMode/:id', async (request, response) => {
+
+  const token = getTokenFrom(request)
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+
+  const body = request.body
+
+  const updatedStreamingMode = {
+    streamingMode: body.streamingMode,
+  }
+
+  const updatedRover = await Rover.findByIdAndUpdate(
+    request.params.id,
+    updatedStreamingMode,
     { new: true }
   )
 
