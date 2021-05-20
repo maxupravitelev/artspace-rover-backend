@@ -14,7 +14,7 @@ usersRouter.get('/:id', async (request, response) => {
 });
 usersRouter.post('/new-user', async (request, response) => {
     const body = request.body;
-    if (body.password.length < 3 || body.password.username < 3) {
+    if (body.password.length < 3 || body.username.length < 3) {
         return response
             .status(400)
             .json({ error: 'username and password must be at least 3 chars long' });

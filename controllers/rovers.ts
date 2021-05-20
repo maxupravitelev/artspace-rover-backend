@@ -7,7 +7,7 @@ const User = require('../models/user')
 
 const { response } = require('../app')
 
-import { request, response } from 'express'
+import { Request, Response } from 'express'
 
 import { getTokenFrom } from '../utils/getTokenFrom'
 

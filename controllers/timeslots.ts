@@ -3,7 +3,7 @@ const timeslotsRouter = require('express').Router()
 const Timeslot = require('../models/timeslot')
 const { response } = require('../app')
 
-import { request, response } from 'express'
+import { Request, Response } from 'express'
 
 import { getTokenFrom } from '../utils/getTokenFrom'
 

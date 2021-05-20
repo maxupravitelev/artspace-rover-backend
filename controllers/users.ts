@@ -4,7 +4,9 @@ const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const { response } = require('../app')
 
-import { request, response } from 'express'
+// import custom ts types
+import { Request, Response } from 'express'
+import { requestBody } from '../types'
 
 ///***** .get routes */
 
@@ -24,10 +26,10 @@ usersRouter.get('/:id', async (request: Request, response: Response) => {
 
 ///***** .post routes */
 
-usersRouter.post('/new-user', async (request: Request, response: Response) => {
+usersRouter.post('/new-user', async (request: Request<{}, {}, requestBody>, response: Response) => {
     const body = request.body
 
-    if (body.password.length < 3 || body.password.username < 3) {
+    if (body.password.length < 3 || body.username.length < 3) {
       return response
         .status(400)
         .json({ error: 'username and password must be at least 3 chars long' })

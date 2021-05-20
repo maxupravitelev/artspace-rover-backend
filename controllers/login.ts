@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const loginRouter = require('express').Router()
 const User = require('../models/user')
 
-import { request, response } from 'express'
+import { Request, Response } from 'express'
 
 // post login data to backend and check credentials
 loginRouter.post('/', async (request: Request, response: Response) => {
