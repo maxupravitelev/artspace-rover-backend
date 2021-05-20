@@ -2,7 +2,7 @@
 
 import { info, log_error } from './logger'
 
-const requestLogger = (request, response, next) => {
+const requestLogger = (request: Request, response: Response, next) => {
   info('Method:', request.method)
   info('Path:  ', request.path)
   info('Body:  ', request.body)
@@ -10,11 +10,11 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
-const unknownEndpoint = (request, response) => {
+const unknownEndpoint = (request: Request, response: Response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
 
-const errorHandler = (error, request, response, next) => {
+const errorHandler = (error, request: Request, response: Response, next) => {
   log_error(error.message)
 
   if (error.name === 'CastError') {

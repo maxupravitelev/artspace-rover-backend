@@ -3,7 +3,7 @@ const exhibitionsRouter = require('express').Router()
 const Exhibition = require('../models/exhibition')
 const { response } = require('../app')
 
-import { Request, Response } from 'express'
+import { request, response } from 'express'
 
 ///***** .get routes */
 

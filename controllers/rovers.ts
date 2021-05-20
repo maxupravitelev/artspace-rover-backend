@@ -7,7 +7,7 @@ const User = require('../models/user')
 
 const { response } = require('../app')
 
-import { Request, Response } from 'express'
+import { request, response } from 'express'
 
 import { getTokenFrom } from '../utils/getTokenFrom'
 
@@ -48,7 +48,7 @@ roversRouter.post('/new-rover', async (request: Request, response: Response) => 
 
 
 // update jitsiUrl
-roversRouter.put('/updateJitsiUrl/:id', async (request, response) => {
+roversRouter.put('/updateJitsiUrl/:id', async (request: Request, response: Response) => {
 
   const token = getTokenFrom(request)
   const decodedToken = jwt.verify(token, process.env.SECRET)
@@ -73,7 +73,7 @@ roversRouter.put('/updateJitsiUrl/:id', async (request, response) => {
 })
 
 // update roverUrl
-roversRouter.put('/updateRoverUrl/:id', async (request, response) => {
+roversRouter.put('/updateRoverUrl/:id', async (request: Request, response: Response) => {
 
   const token = getTokenFrom(request)
   const decodedToken = jwt.verify(token, process.env.SECRET)
@@ -98,7 +98,7 @@ roversRouter.put('/updateRoverUrl/:id', async (request, response) => {
 })
 
 // update mjpgUrl
-roversRouter.put('/updateMjpgUrl/:id', async (request, response) => {
+roversRouter.put('/updateMjpgUrl/:id', async (request: Request, response: Response) => {
 
   const token = getTokenFrom(request)
   const decodedToken = jwt.verify(token, process.env.SECRET)
@@ -124,7 +124,7 @@ roversRouter.put('/updateMjpgUrl/:id', async (request, response) => {
 
 
 // update streaming mode
-roversRouter.put('/updateStreamingMode/:id', async (request, response) => {
+roversRouter.put('/updateStreamingMode/:id', async (request: Request, response: Response) => {
 
   const token = getTokenFrom(request)
   const decodedToken = jwt.verify(token, process.env.SECRET)

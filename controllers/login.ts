@@ -3,8 +3,10 @@ const bcrypt = require('bcrypt')
 const loginRouter = require('express').Router()
 const User = require('../models/user')
 
+import { request, response } from 'express'
+
 // post login data to backend and check credentials
-loginRouter.post('/', async (request, response) => {
+loginRouter.post('/', async (request: Request, response: Response) => {
   const body = request.body
 
   let user = await User.findOne({ username: body.username }).populate('rovers')

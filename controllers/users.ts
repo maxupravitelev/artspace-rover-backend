@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const { response } = require('../app')
 
-import { Request, Response } from 'express'
+import { request, response } from 'express'
 
 ///***** .get routes */
 
@@ -16,7 +16,7 @@ usersRouter.get('/', async (request: Request, response: Response) => {
 
 
 // get user data by user id
-usersRouter.get('/:id', async (request, response) => {
+usersRouter.get('/:id', async (request: Request, response: Response) => {
   const user = await User.findById(request.params.id).populate('rovers')
   response.json(user)
 })

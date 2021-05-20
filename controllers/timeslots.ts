@@ -3,7 +3,7 @@ const timeslotsRouter = require('express').Router()
 const Timeslot = require('../models/timeslot')
 const { response } = require('../app')
 
-import { Request, Response } from 'express'
+import { request, response } from 'express'
 
 import { getTokenFrom } from '../utils/getTokenFrom'
 
@@ -97,7 +97,7 @@ timeslotsRouter.post('/generate-timeslots', async (request: Request, response: R
 )
 
 // remove timeslot by id
-timeslotsRouter.delete('/:id', async (request, response) => {
+timeslotsRouter.delete('/:id', async (request: Request, response: Response) => {
 
   const token = getTokenFrom(request)
 

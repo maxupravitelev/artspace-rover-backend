@@ -5,7 +5,7 @@ const Timeslot = require('../models/timeslot')
 
 const { response } = require('../app')
 
-import { Request, Response } from 'express'
+import { request, response } from 'express'
 
 const randomWords = require('random-words')
 
