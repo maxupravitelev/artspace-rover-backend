@@ -38,7 +38,7 @@ mongoose
   .then(() => {
     info('connected to MongoDB')
   })
-  .catch((err) => {
+  .catch((err: any) => {
     log_error('error connection to MongoDB:', err.message)
   })
 
