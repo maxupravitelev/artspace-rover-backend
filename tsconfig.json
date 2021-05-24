@@ -3,6 +3,7 @@
         "target": "ESNext",
         "strict": true,
         "watch": true,
+        "noImplicitAny": true,
         // "emitDecoratorMetadata": true,
         "module": "commonjs",
         "lib": ["DOM", "ES2019"],
