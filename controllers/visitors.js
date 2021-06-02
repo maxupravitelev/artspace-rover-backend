@@ -65,6 +65,11 @@ visitorsRouter.post('/endSession', async (request, response) => {
 });
 visitorsRouter.post('/setInstantSessionState', async (request, response) => {
     instantSessionState = request.body.state;
-    response.json(sessionState);
+    response.json(instantSessionState);
+});
+visitorsRouter.post('/endInstantSession', async (request, response) => {
+    instantSessionState = "session ended";
+    console.log("driving session ended");
+    response.json(instantSessionState);
 });
 module.exports = visitorsRouter;

@@ -95,7 +95,7 @@ visitorsRouter.post('/check/', async (request: Request, response: Response) => {
 )
 
 
-// set driving session state
+// set driving scheduled state
 visitorsRouter.post('/endSession', async (request: Request, response: Response) => {
   const visitor = await Visitor.findOne({ passphrase: request.body.passphrase })
   
@@ -119,12 +119,22 @@ visitorsRouter.post('/endSession', async (request: Request, response: Response) 
 })
 
 
-// set driving session state
+// set instant session state
 visitorsRouter.post('/setInstantSessionState', async (request: Request, response: Response) => {
 
   instantSessionState = request.body.state
 
-  response.json(sessionState)
+  response.json(instantSessionState)
+})
+
+// set driving scheduled state
+visitorsRouter.post('/endInstantSession', async (request: Request, response: Response) => {
+ 
+  instantSessionState = "session ended"
+  
+  console.log("driving session ended")
+
+  response.json(instantSessionState)
 })
 
 
