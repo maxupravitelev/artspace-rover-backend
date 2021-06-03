@@ -10,7 +10,7 @@ import { Request, Response } from 'express'
 const randomWords = require('random-words')
 
 let sessionState = "session ended"
-let instantSessionState = "session ended"
+// let instantSessionState = "session ended"
 
 
 /// GET ROUTES
@@ -122,19 +122,19 @@ visitorsRouter.post('/endSession', async (request: Request, response: Response) 
 // set instant session state
 visitorsRouter.post('/setInstantSessionState', async (request: Request, response: Response) => {
 
-  instantSessionState = request.body.state
+  sessionState = request.body.state
 
-  response.json(instantSessionState)
+  response.json(sessionState)
 })
 
 // set driving scheduled state
 visitorsRouter.post('/endInstantSession', async (request: Request, response: Response) => {
  
-  instantSessionState = "session ended"
+  sessionState = "session ended"
   
   console.log("driving session ended")
 
-  response.json(instantSessionState)
+  response.json(sessionState)
 })
 
 

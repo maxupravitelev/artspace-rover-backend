@@ -6,7 +6,6 @@ const Timeslot = require('../models/timeslot');
 const { response } = require('../app');
 const randomWords = require('random-words');
 let sessionState = "session ended";
-let instantSessionState = "session ended";
 visitorsRouter.get('/findbyid/:id', async (request, response) => {
     const visitor = await Visitor.findById(request.params.id).populate('timeslot');
     response.json(visitor);
@@ -64,12 +63,12 @@ visitorsRouter.post('/endSession', async (request, response) => {
     response.json(sessionState);
 });
 visitorsRouter.post('/setInstantSessionState', async (request, response) => {
-    instantSessionState = request.body.state;
-    response.json(instantSessionState);
+    sessionState = request.body.state;
+    response.json(sessionState);
 });
 visitorsRouter.post('/endInstantSession', async (request, response) => {
-    instantSessionState = "session ended";
+    sessionState = "session ended";
     console.log("driving session ended");
-    response.json(instantSessionState);
+    response.json(sessionState);
 });
 module.exports = visitorsRouter;
